@@ -27,5 +27,44 @@ namespace FootballTeam.Databases
         public string Country { get; set; }
 
     }
+    /// <summary>
+    ///  Model pilkarza
+    /// </summary>
+    public class Footballer
+    {
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Nationality { get; set; }
 
+        public DateTime DateOfBirth { get; set; }
+
+        public int Weight { get; set; }
+
+        public int Height { get; set; }
+        [NotMapped]
+        // zcalenie imienia i nazwiska 
+        public string FullName => $"{FirstName} {LastName}";
+
+        //'foreign key'
+        public List<TransferHistory> TransferHistories { get; set; }
+
+        public Footballer() { }
+
+        // tworzenie gracza
+        public Footballer(string firstName, string lastName, string nationality,
+            DateTime dateOfBirth, int weight, int height)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Nationality = nationality;
+            DateOfBirth = dateOfBirth;
+            Weight = weight;
+            Height = height;
+        }
+    }
+    /// <summary>
+    ///  Model klubu
+    /// </summary>
+   
 }
