@@ -88,6 +88,53 @@ namespace FootballTeam
         /// <summary>
         /// Crud dla Sponsorów
         /// </summary>
+        #region Sponsors
+        // Read
+        private void GetSponsors()
+        {
+            SponsorDG.ItemsSource = dbContext.Sponsors.ToList();
+        }
+        // Create
+        private void AddSponsor(object s, RoutedEventArgs e)
+        {
+            dbContext.Sponsors.Add(sponsorToCreate);
+            dbContext.SaveChanges();
+            GetSponsors();
+            sponsorToCreate = new Sponsor();
+            AddSponsorGrid.DataContext = sponsorToCreate;
+        }
+        // Update
+        Sponsor selectedSponsor = new Sponsor();
+        private void UpdateSponsorForEdit(object s, RoutedEventArgs e)
+        {
+            selectedSponsor = (s as FrameworkElement).DataContext as Sponsor;
+            EditSponsorGrid.DataContext = selectedSponsor;
+            AddSponsorGrid.Visibility = Visibility.Collapsed;
+            EditSponsorGrid.Visibility = Visibility.Visible;
+        }
 
+        private void UpdateSponsor(object s, RoutedEventArgs e)
+        {
+            dbContext.Update(selectedSponsor);
+            dbContext.SaveChanges();
+            GetSponsors();
+            AddSponsorGrid.Visibility = Visibility.Visible;
+            EditSponsorGrid.Visibility = Visibility.Hidden;
+        }
+        //Deleted
+        private void DeleteSponsor(object s, RoutedEventArgs e)
+        {
+            var sponsorToBeDeleted = (s as FrameworkElement).DataContext as Sponsor;
+            dbContext.Sponsors.Remove(sponsorToBeDeleted);
+            dbContext.SaveChanges();
+            GetSponsors();
+        }
+        // Anulowanie zminany
+        private void CancelSponsorChanges(object s, RoutedEventArgs e)
+        {
+            AddSponsorGrid.Visibility = Visibility.Visible;
+            EditSponsorGrid.Visibility = Visibility.Collapsed;
+        }
+        #endregion
     }
 }
