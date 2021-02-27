@@ -1,0 +1,177 @@
+﻿<Window x:Class="FootballTeam.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FootballTeam"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="950">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="116*"/>
+            <ColumnDefinition Width="359*"/>
+        </Grid.ColumnDefinitions>
+        <!--robimy 2 zakladki-->
+        <TabControl Grid.ColumnSpan="2">
+            <!--uklad pilkarzy-->
+            <TabItem Header="Footballers">
+                <Grid Background="#FFE5E5E5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Footballers"/>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*" />
+                                <!--This will make any control in this column of grid take 4/6 of total width-->
+                                <ColumnDefinition Width="2*" />
+                                <!--This will make any control in this column of grid take 2/6 of total width-->
+                            </Grid.ColumnDefinitions>
+                            <!--Tabela z graczami-->
+                            <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" Margin="5">
+                                <StackPanel Margin="5">
+                                    <DataGrid AutoGenerateColumns="False" Margin="5" Name="FootballerDG" IsReadOnly="True">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                                            <DataGridTextColumn Header="FirstName" Binding="{Binding FirstName}"/>
+                                            <DataGridTextColumn Header="LastName" Binding="{Binding LastName}"/>
+                                            <DataGridTextColumn Header="Nationality" Binding="{Binding Nationality}"/>
+                                            <DataGridTextColumn Header="DateOfBirth" Binding="{Binding DateOfBirth}"/>
+                                            <DataGridTextColumn Header="Weight" Binding="{Binding Weight}"/>
+                                            <DataGridTextColumn Header="Height" Binding="{Binding Height}"/>
+
+                                            <DataGridTemplateColumn Header="Update">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button Content="Edit" Click="UpdateFootballerForEdit"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+
+                                            <DataGridTemplateColumn Header="Delete">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button Content="Delete" Click="DeleteFootballer"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </StackPanel>
+                            </Border>
+    
+                                <!--Pola Edycji-->
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <!--Zakladka sponsorow-->
+            <TabItem Header="Sponsors">
+                <Grid Background="#FFE5E5E5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Sponsors"/>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*" />
+                                <!--This will make any control in this column of grid take 4/6 of total width-->
+                                <ColumnDefinition Width="2*" />
+                                <!--This will make any control in this column of grid take 2/6 of total width-->
+                            </Grid.ColumnDefinitions>
+                                <!--Pole tabeli-->
+                            <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" Margin="5">
+                                <StackPanel Margin="5">
+                                    <DataGrid AutoGenerateColumns="False" Margin="5" Name="SponsorDG" IsReadOnly="True">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                                            <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                                            <DataGridTextColumn Header="WebSite" Binding="{Binding WebSite}"/>
+
+
+                                            <DataGridTemplateColumn Header="Update">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button Content="Edit" Click="UpdateSponsorForEdit"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+
+                                            <DataGridTemplateColumn Header="Delete">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button Content="Delete" Click="DeleteSponsor"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </StackPanel>
+                            </Border>
+
+                                <!--Pole edycji-->
+                            <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1" Margin="5">
+                                <StackPanel Margin="5">
+                                    <Label Content="Sponsors" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                                    <Grid Margin="5" x:Name="AddSponsorGrid">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+
+                                        <Label Grid.Row="0" Grid.Column="0" Content="Name"/>
+                                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name}"/>
+
+                                        <Label Grid.Row="1" Grid.Column="0" Content="WebSite"/>
+                                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding WebSite}"/>
+
+
+
+                                        <Button x:Name="ButtonCreateSponsor" Content="Create" Grid.Row="2" Grid.ColumnSpan="2" Margin="5" Click="AddSponsor"/>
+
+                                    </Grid>
+
+                                    <Grid Margin="5" x:Name="EditSponsorGrid" Visibility="Collapsed">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+
+                                        <Label Grid.Row="0" Grid.Column="0" Content="Name"/>
+                                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name}"/>
+
+                                        <Label Grid.Row="1" Grid.Column="0" Content="WebSite"/>
+                                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding WebSite}"/>
+
+                                        <Button x:Name="ButtonUpdateSponsor" Content="Update" Grid.Row="2" Grid.ColumnSpan="2" Margin="5" Click="UpdateSponsor"/>
+
+                                        <Button x:Name="ButtonCancelSponsorChanges" Content="Cancel" Grid.Row="3" Grid.ColumnSpan="2" Margin="5" Click="CancelSponsorChanges"/>
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>
