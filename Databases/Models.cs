@@ -66,5 +66,20 @@ namespace FootballTeam.Databases
     /// <summary>
     ///  Model klubu
     /// </summary>
-   
+    public class SportClub
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string Owner { get; set; }
+
+        // klub zawiera sponsora
+        public List<Sponsor> Sponsors { get; set; }
+        //klub zawiera graczy 
+        public List<Footballer> Footballers { get; set; }
+        // klub ma adres
+        public Address Address { get; set; }
+    }
+
 }
